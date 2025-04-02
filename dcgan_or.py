@@ -100,34 +100,34 @@ class Generator(nn.Module):
         super(Generator, self).__init__()
         self.ngpu = ngpu
         self.main = nn.Sequential(
-            nn.ConvTranspose2d(nz, ngf * 16, 4, 1, 0, bias=False),     # 1x1 → 4x4
+            nn.ConvTranspose2d(nz, ngf * 16, 4, 1, 0, bias=False),     
             nn.BatchNorm2d(ngf * 16),
             nn.ReLU(True),
 
-            nn.ConvTranspose2d(ngf * 16, ngf * 8, 4, 2, 1, bias=False), # 4x4 → 8x8
+            nn.ConvTranspose2d(ngf * 16, ngf * 8, 4, 2, 1, bias=False), 
             nn.BatchNorm2d(ngf * 8),
             nn.ReLU(True),
 
-            nn.ConvTranspose2d(ngf * 8, ngf * 4, 4, 2, 1, bias=False),  # 8x8 → 16x16
+            nn.ConvTranspose2d(ngf * 8, ngf * 4, 4, 2, 1, bias=False), 
             nn.BatchNorm2d(ngf * 4),
             nn.ReLU(True),
 
-            nn.ConvTranspose2d(ngf * 4, ngf * 2, 4, 2, 1, bias=False),  # 16x16 → 32x32
+            nn.ConvTranspose2d(ngf * 4, ngf * 2, 4, 2, 1, bias=False),  
             nn.BatchNorm2d(ngf * 2),
             nn.ReLU(True),
 
-            nn.ConvTranspose2d(ngf * 2, ngf, 4, 2, 1, bias=False),      # 32x32 → 64x64
+            nn.ConvTranspose2d(ngf * 2, ngf, 4, 2, 1, bias=False),     
             nn.BatchNorm2d(ngf),
             nn.ReLU(True),
 
-            nn.ConvTranspose2d(ngf, ngf // 2, 4, 2, 1, bias=False),     # 64x64 → 128x128
+            nn.ConvTranspose2d(ngf, ngf // 2, 4, 2, 1, bias=False),   
             nn.BatchNorm2d(ngf // 2),
             nn.ReLU(True),
 
-            nn.ConvTranspose2d(ngf // 2, nc, 4, 2, 1, bias=False),      # 128x128 → 256x256
+            nn.ConvTranspose2d(ngf // 2, nc, 4, 2, 1, bias=False),     
             nn.Tanh(),
             
-            nn.Conv2d(nc, nc, kernel_size=33, stride=1, padding=0)  # 256 → 224 (256 - 33 + 1 = 224)
+            nn.Conv2d(nc, nc, kernel_size=33, stride=1, padding=0) 
             # nn.CenterCrop(224)  # final size: 224x224
             # transforms.CenterCrop(224)
         )
@@ -153,21 +153,21 @@ class Discriminator(nn.Module):
         super(Discriminator, self).__init__()
         self.ngpu = ngpu
         self.main = nn.Sequential(
-            nn.Conv2d(nc, ndf, 4, 2, 1, bias=False),      # 224 -> 112
+            nn.Conv2d(nc, ndf, 4, 2, 1, bias=False),     
             nn.LeakyReLU(0.2, inplace=True),
-            nn.Conv2d(ndf, ndf * 2, 4, 2, 1, bias=False), # 112 -> 56
+            nn.Conv2d(ndf, ndf * 2, 4, 2, 1, bias=False), 
             nn.BatchNorm2d(ndf * 2),
             nn.LeakyReLU(0.2, inplace=True),
-            nn.Conv2d(ndf * 2, ndf * 4, 4, 2, 1, bias=False), # 56 -> 28
+            nn.Conv2d(ndf * 2, ndf * 4, 4, 2, 1, bias=False), 
             nn.BatchNorm2d(ndf * 4),
             nn.LeakyReLU(0.2, inplace=True),
-            nn.Conv2d(ndf * 4, ndf * 8, 4, 2, 1, bias=False), # 28 -> 14
+            nn.Conv2d(ndf * 4, ndf * 8, 4, 2, 1, bias=False), 
             nn.BatchNorm2d(ndf * 8),
             nn.LeakyReLU(0.2, inplace=True),
-            nn.Conv2d(ndf * 8, ndf * 16, 4, 2, 1, bias=False), # 14 -> 7
+            nn.Conv2d(ndf * 8, ndf * 16, 4, 2, 1, bias=False), 
             nn.BatchNorm2d(ndf * 16),
             nn.LeakyReLU(0.2, inplace=True),
-            nn.Conv2d(ndf * 16, 1, 7, 1, 0, bias=False),  # 7 -> 1
+            nn.Conv2d(ndf * 16, 1, 7, 1, 0, bias=False), 
             nn.Sigmoid()
         )
 
