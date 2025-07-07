@@ -2,7 +2,7 @@
 """
 Created on Sun Mar 30 18:10:45 2025
 
-@author: oruku
+@author: orukundo@gmail.com
 """
 
 import torch
